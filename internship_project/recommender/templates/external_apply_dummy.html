@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5 text-center">
+    <div class="card shadow-sm p-5 border-0 rounded-4">
+        <div class="mb-4">
+            <i class="fas fa-exclamation-circle text-warning fa-4x"></i>
+        </div>
+        <h2 class="fw-bold text-dark">Application Portal</h2>
+        <p class="text-muted lead">You have been redirected to the external application portal for this internship.</p>
+        <div class="alert alert-light border text-start d-inline-block mx-auto" style="max-width: 500px;">
+            <p class="mb-0 fw-bold"><i class="fas fa-info-circle me-2"></i>Status: No Data Available</p>
+            <p class="small text-muted mb-0">The specific application form for this opportunity has not been configured
+                by the employer yet. Please check back later or contact the company directly.</p>
+        </div>
+        <div class="mt-4">
+            <a href="{% url 'all_internships' %}" class="btn btn-outline-primary rounded-pill px-4">
+                <i class="fas fa-arrow-left me-2"></i>Go Back to Internships
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

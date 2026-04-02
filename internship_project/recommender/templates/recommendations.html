@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+{% comment %} Fixed by Antigravity {% endcomment %}
+
+{% block content %}
+<div class="hero-banner" style="background-color: #2f855a; color: white;">
+    <div class="container px-4">
+        <h1 class="display-5 fw-bold mb-2">
+            <span data-i18n="Personalized For You">Personalized For You</span>
+        </h1>
+        <p class="lead opacity-75">
+            <span data-i18n="subtitle_recommendations">Based on your skills</span>:
+            <strong><span data-i18n="Not set yet">{{ skills|default:"Not set yet" }}</span></strong>
+        </p>
+        <a href="{% url 'profile' %}" class="btn btn-sm btn-light rounded-pill mt-2 fw-bold" style="color: #2f855a;">
+            <i class="fas fa-edit me-1"></i> <span data-i18n="Edit My Skills">Edit My Skills</span>
+        </a>
+    </div>
+</div>
+
+<div class="container py-5">
+    {% if results %}
+    <!-- Filter and Sort Bar (Recommendations) -->
+    <div class="card-custom border-0 shadow-sm p-4 mb-5" style="background-color: var(--card-bg);">
+        <form method="GET" action="{% url 'recommendations' %}" class="row g-3 align-items-end">
+            <!-- Location Filter -->
+            <div class="col-md-3">
+                <label class="form-label small fw-bold text-muted text-uppercase">Filter by Location</label>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text bg-white border-end-0"><i class="fas fa-map-marker-alt text-success"></i></span>
+                    <input type="text" name="location" class="form-control border-start-0 ps-0" 
+                           placeholder="City or State..." value="{{ current_filters.location }}">
+                </div>
+            </div>
+
+            <!-- Work Type Filter -->
+            <div class="col-md-3">
+                <label class="form-label small fw-bold text-muted text-uppercase">Internship Type</label>
+                <select name="work_type" class="form-select form-select-sm">
+                    <option value="" {% if not current_filters.work_type %}selected{% endif %}>All Types</option>
+                    <option value="In-office" {% if current_filters.work_type == 'In-office' %}selected{% endif %}>In-office</option>
+                    <option value="Work from Home" {% if current_filters.work_type == 'Work from Home' %}selected{% endif %}>Work from Home</option>
+                    <option value="Field work" {% if current_filters.work_type == 'Field work' %}selected{% endif %}>Field work</option>
+                    <option value="Hybrid" {% if current_filters.work_type == 'Hybrid' %}selected{% endif %}>Hybrid</option>
+                </select>
+            </div>
+
+            <!-- Sort By -->
+            <div class="col-md-3">
+                <label class="form-label small fw-bold text-muted text-uppercase">Sort By</label>
+                <select name="sort" class="form-select form-select-sm">
+                    <option value="match_percentage_desc" {% if current_filters.sort == 'match_percentage_desc' %}selected{% endif %}>Best Match</option>
+                    <option value="stipend_desc" {% if current_filters.sort == 'stipend_desc' %}selected{% endif %}>Stipend: High to Low</option>
+                    <option value="stipend_asc" {% if current_filters.sort == 'stipend_asc' %}selected{% endif %}>Stipend: Low to High</option>
+                </select>
+            </div>
+
+            <!-- Actions -->
+            <div class="col-md-3 d-grid gap-2">
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-green btn-sm rounded-pill w-100">
+                        <i class="fas fa-filter me-1"></i> Apply
+                    </button>
+                    <a href="{% url 'recommendations' %}" class="btn btn-outline-secondary btn-sm rounded-pill w-100">
+                        Reset
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="row g-5">
+        <!-- Dashboard Left: Recommendations -->
+        <div class="col-lg-9">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="fw-bold m-0" style="color: var(--text-dark);"><i class="fas fa-magic text-success me-2"></i><span
+                        data-i18n="Best Matches">Best Matches</span></h2>
+                <span class="badge-green" style="color: var(--primary-green); background-color: var(--light-green);">{{ results|length }} <span data-i18n="roles > 2% match"></span>roles &gt; 2%
+                    match</span>
+            </div>
+
+            <div class="row g-4">
+                {% for r in results %}
+                <div class="col-md-6">
+                    <div class="card-custom border-0 shadow-sm">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div class="bg-success text-white p-3 rounded-4">
+                                <i class="fas fa-building fa-lg"></i>
+                            </div>
+                            <div class="d-flex align-items-center gap-3">
+                                {% if user.is_authenticated %}
+                                <a href="{% url 'toggle_save_internship' r.id %}" class="text-decoration-none">
+                                    <i class="{% if r.id in saved_ids %}fas{% else %}far{% endif %} fa-bookmark {% if r.id in saved_ids %}text-danger{% else %}text-muted{% endif %} fa-lg"></i>
+                                </a>
+                                {% endif %}
+                                <span class="badge-green bg-success text-white border-0">{{ r.Match_Percentage }}%
+                                    <span data-i18n="Match">Match</span></span>
+                            </div>
+                        </div>
+                        <h4 class="fw-bold mb-1" style="color: var(--text-dark);">{{ r.Title }}</h4>
+                        <div class="d-flex flex-wrap gap-2 mb-2">
+                            <span class="badge bg-primary-subtle text-primary border-0 small">
+                                &#x20B9;{{ r.Stipend }}
+                            </span>
+                            <span class="badge bg-light text-dark border small">
+                                {{ r.Duration }} <span data-i18n="Months">Months</span>
+                            </span>
+                            <span class="badge bg-warning-subtle text-warning border-0 small">
+                                <i class="fas fa-briefcase me-1"></i>{{ r.work_type }}
+                            </span>
+                        </div>
+                        <p class="text-success small mb-3">
+                            <i class="fas fa-map-marker-alt me-2"></i>{{ r.Location }}
+                        </p>
+
+                        <div class="mb-4">
+                            <p class="small text-muted mb-2 text-uppercase fw-bold">
+                                <span data-i18n="Required Skills">Required Skills</span>
+                            </p>
+                            <div class="d-flex flex-wrap gap-2">
+                                {% for skill_item in r.Skills_List %}
+                                <span class="badge border px-2 py-1" style="font-size: 0.75rem; background-color: var(--white); color: var(--text-dark);">
+                                    {{ skill_item }}
+                                </span>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="d-grid">
+                            <a href="{% url 'apply_internship' r.id %}" class="btn btn-green" target="_blank"><span
+                                    data-i18n="Apply Now">Apply Now</span></a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Dashboard Right: Skill Gap -->
+        <div class="col-lg-3">
+            <div class="sticky-top" style="top: 100px;">
+                <div class="p-4 rounded-4 shadow-sm border h-100"
+                    style="background-color: var(--card-bg); border-color: var(--cement) !important; color: var(--text-dark);">
+                    <h5 class="fw-bold mb-3"><i class="fas fa-chart-line text-warning me-2"></i><span
+                            data-i18n="Skill Gaps">Skill Gaps</span></h5>
+                    <p class="small text-muted mb-4"><span data-i18n="Top missing skills from your matches.">Top missing
+                            skills from your matches.</span></p>
+
+                    <div class="d-flex flex-column gap-3">
+                        {% if skill_gaps %}
+                        {% for gap in skill_gaps %}
+                        <div class="d-flex align-items-center justify-content-between p-2 rounded-3"
+                            style="background-color: var(--light-green);">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="text-success fw-bold">#</span>
+                                <span class="small fw-semibold">{{ gap.skill }}</span>
+                            </div>
+                            <span class="badge border small" style="background-color: var(--white); color: var(--text-dark);">{{ gap.frequency }}</span>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <p class="text-muted small italic"><span data-i18n="No skills to learn yet!">No skills to learn
+                                yet!</span></p>
+                        {% endif %}
+                    </div>
+
+                    <hr class="my-4">
+                    <div class="alert alert-warning border-0 small m-0">
+                        <i class="fas fa-lightbulb me-1"></i> <span
+                            data-i18n="Learning these increases match score.">Learning these increases match
+                            score.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {% else %}
+    <div class="text-center py-5">
+        <img src="https://illustrations.popsy.co/green/searching.svg" alt="Empty" style="max-width: 250px;"
+            class="mb-4">
+        <h3 class="fw-bold" style="color: var(--text-dark);"><span data-i18n="No recommendations matched">No recommendations matched</span></h3>
+        <p class="text-muted"><span data-i18n="No recommendations matched criteria">We couldn't find any internships
+                with a match percentage greater than 2% for your current
+                skills.</span></p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="{% url 'profile' %}" class="btn btn-green"><span data-i18n="Update My Skills">Update My
+                    Skills</span></a>
+            <a href="{% url 'all_internships' %}" class="btn btn-outline-success"><span data-i18n="Browse All">Browse
+                    All</span></a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

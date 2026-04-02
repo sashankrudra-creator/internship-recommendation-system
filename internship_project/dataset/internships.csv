@@ -1,0 +1,75 @@
+No.,Title ,Company_Name,Skills_Required,Location,Interest_Area,Education _Level,Stipend (INR),Duration (Months),Application_URL
+1,Web Development Intern,,"HTML, CSS, JS, React",Bangalore,IT/Software,B.Tech CSE/ECE,7032,3.0,/external-apply-dummy/
+2,Data Science Intern,,"Python, Pandas, ML basics",Hyderabad,Data Analytics,B.Tech / B.Sc. CS,4757,12.0,/external-apply-dummy/
+3,Digital Marketing Intern,,"SEO, Social Media, Canva",Delhi,Marketing,Any Graduate,5996,6.0,/external-apply-dummy/
+4,Embedded Systems Intern,,"C, Arduino, IoT",Pune,Electronics,B.Tech ECE/EEE,4549,12.0,/external-apply-dummy/
+5,AI/ML Research Intern,,"Python, TensorFlow, NLP,sklearn",Chennai,Artificial Intelligence,B.Tech/M.Tech,6114,1.0,/external-apply-dummy/
+6,Content Writing Intern,,"Writing, Research, Editing",Remote,Media/Communication,BA/MA English,7227,2.0,/external-apply-dummy/
+7,Cybersecurity Intern,,"Networking, Ethical Hacking",Noida,Cybersecurity,B.Tech IT/CSE,4414,2.0,/external-apply-dummy/
+8,Finance Intern,,"Excel, Accounting, Tally",Mumbai,Finance/Banking,B.Com/MBA,7373,2.0,/external-apply-dummy/
+9,Civil Engineering Intern,,"AutoCAD, Structural Design",Jaipur,Construction,B.Tech Civil,4141,3.0,/external-apply-dummy/
+10,Graphic Design Intern,,"Photoshop, Illustrator, Figma",Kolkata,Design,B.Des/Any Graduate,3212,2.0,/external-apply-dummy/
+11,HR Intern,,"Communication, Recruitment Tools",Gurgaon,Human Resources,MBA HR,5972,6.0,/external-apply-dummy/
+12,Robotics Intern,,"Robotics Kits, C++, MATLAB",Bangalore,Robotics,B.Tech Mech/ECE,3494,2.0,/external-apply-dummy/
+13,Cloud Computing Intern,,"AWS, Docker, Kubernetes",Pune,Cloud/DevOps,B.Tech CSE/IT,3781,3.0,/external-apply-dummy/
+14,Mobile App Dev Intern,,"Flutter, Kotlin, Swift",Hyderabad,App Development,B.Tech CSE/IT,7907,6.0,/external-apply-dummy/
+15,Journalism Intern,,"Writing, Reporting, Editing",Delhi,Journalism,BA Journalism,7209,6.0,/external-apply-dummy/
+16,Social Work Intern,,"Community Work, Counselling",Rural Areas (UP),NGO/Social Sector,BA/MA Social Work,3438,2.0,/external-apply-dummy/
+17,AR/VR Intern,,"Unity3D, Blender, ARKit",Bangalore,AR/VR,B.Tech / B.Des,4300,2.0,/external-apply-dummy/
+18,Mechanical Design Intern,,"CAD, SolidWorks, Pro-E",Coimbatore,Mechanical,B.Tech Mech,5313,3.0,/external-apply-dummy/
+19,Renewable Energy Intern,,"Solar Tech, MATLAB",Jaipur,Energy Sector,B.Tech EE/Mech,6935,2.0,/external-apply-dummy/
+20,Biotechnology Intern,,"Lab Skills, PCR, Genetics",Hyderabad,Biotechnology,B.Sc/B.Tech Biotech,5975,6.0,/external-apply-dummy/
+21,Legal Intern,,"Legal Research, Drafting",Delhi,Law,LLB/LLM,4932,1.0,/external-apply-dummy/
+22,EdTech Intern,,"LMS, Content Creation",Remote,Education,B.Ed/M.Ed,5434,6.0,/external-apply-dummy/
+23,Data Entry Intern,,"MS Office, Accuracy",Remote,Admin,Any Graduate,4586,6.0,/external-apply-dummy/
+24,Game Development Intern,,"Unity, C#, Game Design",Pune,Gaming,B.Tech/B.Des,4989,12.0,/external-apply-dummy/
+25,Business Analyst Intern,,"SQL, Excel, Tableau",Gurgaon,Business Analytics,MBA/B.Tech,3780,6.0,/external-apply-dummy/
+26,Animation Intern,,"After Effects, Maya, Blender",Mumbai,Animation,B.Des/Any Graduate,4563,1.0,/external-apply-dummy/
+27,Agriculture Tech Intern,,"IoT, Crop Monitoring",Punjab,AgriTech,B.Sc Agri/B.Tech,7325,2.0,/external-apply-dummy/
+28,Environmental Research Intern,,"GIS, Data Collection",Kerala,Environment,B.Sc/B.Tech Env. Sci,5057,2.0,/external-apply-dummy/
+29,Supply Chain Intern,,"Logistics, SAP, Excel",Ahmedabad,Supply Chain,MBA/Any Graduate,3612,12.0,/external-apply-dummy/
+30,Healthcare Intern,,"Public Health, Data Entry",Lucknow,Healthcare,B.Sc Nursing/Pharma,3895,3.0,/external-apply-dummy/
+31,Frontend Developer Intern,,"HTML, CSS, Angular,javascript",Bangalore,IT/Software,B.Tech CSE/IT,5322,3.0,/external-apply-dummy/
+32,Backend Developer Intern,,"Node.js, MongoDB, APIs",Hyderabad,IT/Software,B.Tech CSE,4171,2.0,/external-apply-dummy/
+33,Full Stack Developer Intern,,"MERN Stack, GitHub,css,html,javascript",Pune,IT/Software,B.Tech CSE,3778,3.0,/external-apply-dummy/
+34,UI/UX Design Intern,,"Figma, Prototyping, User Testing",Delhi,Design,B.Des,7283,12.0,/external-apply-dummy/
+35,Cloud DevOps Intern,,"Jenkins, Terraform, AWS",Chennai,Cloud/DevOps,B.Tech CSE/IT,5496,3.0,/external-apply-dummy/
+36,Data Engineer Intern,,"SQL, Hadoop, Spark",Noida,Data Analytics,B.Tech CSE/IT,4238,3.0,/external-apply-dummy/
+37,Machine Learning Intern,,"Scikit-Learn, PyTorch,Python",Bangalore,AI/ML,B.Tech CSE,5152,6.0,/external-apply-dummy/
+38,NLP Intern,,"Text Mining, Transformers,Ml",Hyderabad,AI/ML,B.Tech/M.Tech,4793,3.0,/external-apply-dummy/
+39,Computer Vision Intern,,"OpenCV, CNN, Deep Learning",Pune,AI/ML,B.Tech CSE,4528,1.0,/external-apply-dummy/
+40,AI Ethics Intern,,"AI Policy, Fairness, Bias Mitigation",Delhi,AI/Policy,Any Graduate,6297,3.0,/external-apply-dummy/
+41,Marketing Analytics Intern,,"Google Analytics, Power BI",Mumbai,Marketing,MBA,5373,1.0,/external-apply-dummy/
+42,Social Media Marketing Intern,,"Instagram Ads, Canva",Kolkata,Marketing,Any Graduate,4870,6.0,/external-apply-dummy/
+43,SEO Intern,,"Keyword Research, Google Search Console",Gurgaon,Marketing,Any Graduate,7247,12.0,/external-apply-dummy/
+44,Robotics Programming Intern,,"ROS, Python, Sensors",Bangalore,Robotics,B.Tech ECE,3960,6.0,/external-apply-dummy/
+45,IoT Systems Intern,,"Raspberry Pi, MQTT",Hyderabad,IoT,B.Tech ECE/IT,7254,12.0,/external-apply-dummy/
+46,Drone Technology Intern,,"UAV Control, MATLAB",Jaipur,Robotics/IoT,B.Tech ECE/Mech,7440,12.0,/external-apply-dummy/
+47,Cybersecurity Analysis Intern,,"Pen Testing, Kali Linux",Noida,Cybersecurity,B.Tech CSE,5681,6.0,/external-apply-dummy/
+48,Cloud Security Intern,,"IAM, Azure Security",Pune,Cybersecurity,B.Tech CSE/IT,5751,3.0,/external-apply-dummy/
+49,Blockchain Intern,,"Ethereum, Smart Contracts",Chennai,Blockchain,B.Tech CSE,6909,1.0,/external-apply-dummy/
+50,FinTech Intern,,"Python, Financial Modeling",Mumbai,Finance/Banking,MBA/B.Com,5958,6.0,/external-apply-dummy/
+51,Accounting Intern,,"Tally, GST, MS Excel",Delhi,Finance/Accounting,B.Com,3554,2.0,/external-apply-dummy/
+52,Stock Market Intern,,"Trading Platforms, Technical Analysis",Gurgaon,Finance/Trading,BBA/MBA,6695,2.0,/external-apply-dummy/
+53,Civil Site Intern,,"Site Supervision, Estimation",Lucknow,Construction,B.Tech Civil,7249,6.0,/external-apply-dummy/
+54,Structural Analysis Intern,,"STAAD Pro, ETABS",Pune,Civil Engineering,B.Tech Civil,4462,3.0,/external-apply-dummy/
+55,Mechanical CAD Intern,,"CATIA, Pro-E",Coimbatore,Mechanical,B.Tech Mech,5170,1.0,/external-apply-dummy/
+56,Manufacturing Intern,,"Lean Manufacturing, CNC",Chennai,Mechanical,B.Tech Mech,3381,2.0,/external-apply-dummy/
+57,Renewable Energy Design Intern,,"Wind Turbines, PV Sizing",Jaipur,Energy Sector,B.Tech EE,5585,1.0,/external-apply-dummy/
+58,Smart Grid Intern,,"Grid Management, IoT",Hyderabad,Energy Sector,B.Tech EE,3990,1.0,/external-apply-dummy/
+59,Biotech Research Intern,,"Protein Modeling, Bioinformatics",Bangalore,Biotechnology,B.Sc/B.Tech Biotech,5665,2.0,/external-apply-dummy/
+60,Pharmaceutical Intern,,"Drug Trials, Chemistry Lab",Mumbai,Pharmacy,B.Pharm,6066,3.0,/external-apply-dummy/
+61,Psychology Intern,,"Counselling, Case Studies",Delhi,Social Work,BA/MA Psychology,3322,6.0,/external-apply-dummy/
+62,NGO Research Intern,,"Data Collection, Field Surveys",Bihar,NGO,BA Social Work,5370,6.0,/external-apply-dummy/
+63,Journalism Research Intern,,"Fact-checking, Data Journalism",Kolkata,Journalism,BA Journalism,4911,12.0,/external-apply-dummy/
+64,Photojournalism Intern,,"Photography, Editing",Delhi,Journalism,BA/Any Graduate,7725,3.0,/external-apply-dummy/
+65,AR Game Intern,,"Unity, ARCore",Pune,AR/VR,B.Tech/B.Des,5886,6.0,/external-apply-dummy/
+66,VR Education Intern,,VR Training Modules,Bangalore,AR/VR/EdTech,B.Tech/Any Graduate,3702,2.0,/external-apply-dummy/
+67,Animation VFX Intern,,"VFX, After Effects, Houdini",Mumbai,Animation,B.Des,5844,6.0,/external-apply-dummy/
+68,Film Editing Intern,,"Premiere Pro, DaVinci Resolve",Chennai,Media,BA Media,7256,3.0,/external-apply-dummy/
+69,Agriculture IoT Intern,,"Sensors, Precision Farming",Punjab,AgriTech,B.Sc Agri,5247,3.0,/external-apply-dummy/
+70,Agri Data Analytics Intern,,"Crop Yield Prediction, ML",Haryana,AgriTech,B.Sc/B.Tech,6925,2.0,/external-apply-dummy/
+71,Logistics Intern,,"Supply Chain Tools, SAP",Ahmedabad,Logistics,MBA,7862,12.0,/external-apply-dummy/
+72,E-Commerce Operations Intern,,"Shopify, Inventory Mgmt",Bangalore,E-Commerce,Any Graduate,5349,12.0,/external-apply-dummy/
+73,Internship Role,infoysis,"python,ml, deeplearning",vishakapatanam,machine learning,,7000,,/external-apply-dummy/
+74,ml designer,prudhvi pvt limtd,"ml,html,css,js",eluru,web developer,,10000,3,/external-apply-dummy/

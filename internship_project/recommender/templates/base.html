@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FuturePath | Internship System</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-green: #38a169;
+            --light-green: #f0fff4;
+            --cement: #edf2f7;
+            --cement-dark: #cbd5e0;
+            --text-dark: #2d3748;
+            --white: #ffffff;
+            --nav-bg: #ffffff;
+            --card-bg: #ffffff;
+            --footer-bg: #ffffff;
+            --banner-bg: #f0fff4;
+        }
+
+        body.dark-mode {
+            --primary-green: #48bb78;
+            --light-green: #2d3748;
+            --cement: #4a5568;
+            --cement-dark: #718096;
+            --text-dark: #f7fafc;
+            --white: #1a202c;
+            --nav-bg: #1a202c;
+            --card-bg: #2d3748;
+            --footer-bg: #1a202c;
+            --banner-bg: #2d3748;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--white);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        /* Navigation Style */
+        .navbar {
+            background-color: var(--nav-bg);
+            border-bottom: 2px solid var(--cement);
+            padding: 1.0rem 0;
+            transition: background-color 0.3s;
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            color: var(--primary-green) !important;
+            letter-spacing: -1px;
+            font-size: 1.6rem;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            color: var(--text-dark) !important;
+            padding: 0.5rem 1.25rem !important;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-green) !important;
+        }
+
+        .nav-link.active {
+            color: var(--primary-green) !important;
+            background-color: var(--light-green);
+            border-radius: 10px;
+        }
+
+        .hero-banner {
+            background-color: var(--banner-bg);
+            padding: 60px 0;
+            border-bottom: 1px solid var(--cement);
+            transition: background-color 0.3s;
+        }
+
+        .btn-green {
+            background-color: var(--primary-green);
+            color: white;
+            border-radius: 12px;
+            font-weight: 700;
+            padding: 12px 28px;
+            border: none;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .btn-green:hover {
+            background-color: #2f855a;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .card-custom {
+            background: var(--card-bg);
+            border: 1px solid var(--cement);
+            border-radius: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            padding: 24px;
+            height: 100%;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .dropdown-menu {
+            background-color: var(--card-bg);
+            border: 1px solid var(--cement);
+        }
+
+        .dropdown-item {
+            color: var(--text-dark);
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--light-green);
+            color: var(--primary-green);
+        }
+
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background: var(--light-green);
+            color: var(--primary-green);
+            transition: all 0.2s;
+            border: 1px solid var(--cement);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .badge-green {
+            background-color: var(--light-green);
+            color: var(--primary-green);
+            border: 1px solid #c6f6d5;
+            padding: 6px 14px;
+            border-radius: 99px;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .nav-link-highlight {
+            background-color: var(--primary-green) !important;
+            color: white !important;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(56, 161, 105, 0.2);
+        }
+
+        /* Dark Mode Form Support */
+        body.dark-mode .form-control,
+        body.dark-mode .form-select {
+            background-color: var(--light-green);
+            border-color: var(--cement);
+            color: var(--text-dark);
+        }
+
+        body.dark-mode .form-control:focus {
+            background-color: var(--light-green);
+            border-color: var(--primary-green);
+            color: var(--text-dark);
+            box-shadow: 0 0 0 0.25rem rgba(72, 187, 120, 0.25);
+        }
+
+        body.dark-mode .text-muted,
+        body.dark-mode .form-text {
+            color: var(--cement-dark) !important;
+        }
+
+        body.dark-mode .modal-content {
+            background-color: var(--card-bg);
+            color: var(--text-dark);
+            border-color: var(--cement);
+        }
+
+        body.dark-mode .alert-success {
+            background-color: rgba(72, 187, 120, 0.1);
+            color: #68d391;
+            border: 1px solid rgba(72, 187, 120, 0.2);
+        }
+
+        body.dark-mode .table {
+            color: var(--text-dark);
+            border-color: var(--cement);
+        }
+
+        body.dark-mode .table-hover tbody tr:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-dark);
+        }
+
+        body.dark-mode .bg-light {
+            background-color: var(--light-green) !important;
+        }
+
+        .nav-link-highlight:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 15px rgba(56, 161, 105, 0.3);
+            background-color: #2f855a !important;
+        }
+
+        .floating-lang {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+            background: var(--card-bg);
+            color: var(--text-dark);
+            padding: 10px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 10px;
+            border: 1px solid var(--cement);
+        }
+
+        .lang-dot {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.7rem;
+            font-weight: 800;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .lang-dot:hover {
+            transform: scale(1.1);
+        }
+
+        .lang-dot.active {
+            border-color: var(--primary-green);
+            background-color: var(--light-green);
+            color: var(--primary-green);
+        }
+
+        footer {
+            background-color: var(--footer-bg);
+            border-top: 1px solid var(--cement);
+            color: var(--cement-dark);
+            padding: 40px 0;
+            margin-top: 80px;
+            transition: background-color 0.3s;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container px-4">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <i class="fas fa-compass me-2"></i><span data-i18n="FUTUREPATH">FUTUREPATH</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-highlight {% if request.resolver_match.url_name == 'all_internships' %}active{% endif %} mb-2 mb-lg-0"
+                            href="{% url 'all_internships' %}"><span data-i18n="Browse Internships">Browse
+                                Internships</span></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="langDropdown" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="fas fa-language me-1"></i> <span data-i18n="Language">Language</span>
+                        </a>
+                        <ul class="dropdown-menu shadow-sm border-0 rounded-4 mt-2" aria-labelledby="langDropdown">
+                            <li><button onclick="setLanguage('en')" class="dropdown-item py-2">English</button></li>
+                            <li><button onclick="setLanguage('hi')" class="dropdown-item py-2">Hindi (हिंदी)</button></li>
+                            <li><button onclick="setLanguage('te')" class="dropdown-item py-2">Telugu (తెలుగు)</button></li>
+                            <li><button onclick="setLanguage('ta')" class="dropdown-item py-2">Tamil (தமிழ்)</button></li>
+                            <li><button onclick="setLanguage('pa')" class="dropdown-item py-2">Punjabi (ਪੰਜਾਬੀ)</button>
+                            </li>
+                            <li><button onclick="setLanguage('ml')" class="dropdown-item py-2">Malayalam
+                                    (മലയാളം)</button></li>
+                            <li><button onclick="setLanguage('kn')" class="dropdown-item py-2">Kannada (ಕನ್ನಡ)</button>
+                            </li>
+                            <li><button onclick="setLanguage('bn')" class="dropdown-item py-2">Bengali (বাংলা)</button>
+                            </li>
+                            <li><button onclick="setLanguage('or')" class="dropdown-item py-2">Odia (ଓଡ଼ିଆ)</button>
+                            </li>
+                        </ul>
+                    </li>
+                    {% if user.is_authenticated %}
+                    {% if not user.is_staff %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'recommendations' %}active{% endif %}"
+                            href="{% url 'recommendations' %}"><span
+                                data-i18n="Recommendations">Recommendations</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'application_history' %}active{% endif %}"
+                            href="{% url 'application_history' %}"><span data-i18n="My Applications">My
+                                Applications</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'saved_internships' %}active{% endif %}"
+                            href="{% url 'saved_internships' %}">
+                            <i class="fas fa-bookmark me-1 text-success opacity-75"></i>Bookmarks
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'admin_dashboard' %}active{% endif %}"
+                            href="{% url 'admin_dashboard' %}"><span data-i18n="Admin Dashboard">Admin
+                                Dashboard</span></a>
+                    </li>
+                    {% endif %}
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'trends' %}active{% endif %}"
+                            href="{% url 'trends' %}">
+                            <i class="fas fa-chart-line me-1 text-success opacity-75"></i>Trends
+                        </a>
+                    </li>
+                </ul>
+                    <div class="theme-toggle" id="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+                        <i class="fas fa-moon" id="theme-icon"></i>
+                    </div>
+
+                    {% if user.is_authenticated %}
+                    <div class="dropdown">
+                        <a href="#"
+                            class="text-decoration-none fw-bold d-flex align-items-center dropdown-toggle" style="color: var(--text-dark);"
+                            id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                            {% if user.userprofile.profile_photo %}
+                            <img src="{{ user.userprofile.profile_photo.url }}" class="rounded-circle me-2" width="30"
+                                height="30" style="object-fit: cover; border: 2px solid var(--primary-green);">
+                            {% else %}
+                            <i class="fas fa-user-circle fa-lg me-1 text-success"></i>
+                            {% endif %}
+                            {{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 rounded-4 mt-2"
+                            aria-labelledby="userMenu">
+                            {% if not user.is_staff %}
+                            <li><a class="dropdown-item py-2" href="{% url 'profile' %}"><i
+                                         class="fas fa-id-badge me-2 opacity-50"></i><span data-i18n="My Profile">My
+                                         Profile</span></a></li>
+                             <li><a class="dropdown-item py-2" href="{% url 'application_history' %}"><i
+                                         class="fas fa-paper-plane me-2 opacity-50"></i><span
+                                         data-i18n="My Applications">My Applications</span></a></li>
+                             {% else %}
+                             <li><a class="dropdown-item py-2" href="{% url 'admin_dashboard' %}"><i
+                                         class="fas fa-tachometer-alt me-2 opacity-50"></i><span
+                                         data-i18n="Dashboard">Dashboard</span></a></li>
+                             {% endif %}
+                             <li>
+                                 <hr class="dropdown-divider">
+                             </li>
+                             <li><a class="dropdown-item py-2 text-danger" href="{% url 'logout' %}"><i
+                                         class="fas fa-sign-out-alt me-2 opacity-50"></i><span
+                                         data-i18n="Logout">Logout</span></a></li>
+                         </ul>
+                     </div>
+                    {% else %}
+                     <a href="{% url 'login' %}" class="text-decoration-none fw-bold" style="color: var(--text-dark); border: none;"><span
+                             data-i18n="Login">Login</span></a>
+                     <a href="{% url 'signup' %}" class="btn btn-green btn-sm rounded-pill px-4"><span
+                             data-i18n="Sign Up">Sign Up</span></a>
+                     {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container mt-3">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm border-0 rounded-4"
+                role="alert">
+                <i
+                    class="fas {% if message.tags == 'success' %}fa-check-circle{% elif message.tags == 'info' %}fa-info-circle{% else %}fa-exclamation-circle{% endif %} me-2"></i>
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        {% block content %}{% endblock %}
+    </main>
+
+    <div class="floating-lang d-none d-md-flex" style="flex-wrap: wrap; max-width: 260px; justify-content: flex-end;">
+        <div onclick="setLanguage('en')" class="lang-dot shadow-sm" title="English">EN</div>
+        <div onclick="setLanguage('hi')" class="lang-dot shadow-sm" title="Hindi">हिं</div>
+        <div onclick="setLanguage('te')" class="lang-dot shadow-sm" title="Telugu">తె</div>
+        <div onclick="setLanguage('ta')" class="lang-dot shadow-sm" title="Tamil">த</div>
+        <div onclick="setLanguage('pa')" class="lang-dot shadow-sm" title="Punjabi">ਪੰ</div>
+        <div onclick="setLanguage('ml')" class="lang-dot shadow-sm" title="Malayalam">മ</div>
+        <div onclick="setLanguage('kn')" class="lang-dot shadow-sm" title="Kannada">ಕ</div>
+        <div onclick="setLanguage('bn')" class="lang-dot shadow-sm" title="Bengali">বাং</div>
+        <div onclick="setLanguage('or')" class="lang-dot shadow-sm" title="Odia">ଓ</div>
+    </div>
+
+    <footer>
+        <div class="container text-center">
+            <p class="small mb-0 opacity-50">&copy; 2026 FuturePath Internships. <span
+                    data-i18n="Designed for builders.">Designed for builders.</span></p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // High-Performance Regional Language Translation Engine
+        const translations = {
+            'hi': {
+                'FUTUREPATH': 'फ्यूचरपाथ',
+                'Browse Internships': 'इंटर्नशिप देखें',
+                'Recommendations': 'सिफारिशें',
+                'My Applications': 'मेरे आवेदन',
+                'Admin Dashboard': 'एडमिन डैशबोर्ड',
+                'Explore All Internships': 'सभी इंटर्नशिप खोजें',
+                'Browse the full catalog': 'पूरा कैटलॉग देखें',
+                'Full Catalog': 'पूरा कैटलॉग',
+                'Internship Title': 'इंटर्नशिप का शीर्षक',
+                'Company': 'कंपनी',
+                'Stipend': 'स्टाइपेंड',
+                'Duration': 'अवधि',
+                'Location': 'स्थान',
+                'Apply Now': 'अभी आवेदन करें',
+                'Already Applied': 'पहले से आवेदन किया गया',
+                'Personalized For You': 'आपके लिए व्यक्तिगत',
+                'Based on your skills': 'आपके कौशल के आधार पर',
+                'Edit My Skills': 'मेरे कौशल संपादित करें',
+                'Application History': 'आवेदन का इतिहास',
+                'Successfully applied': 'सफलतापूर्वक आवेदन किया गया',
+                'Status': 'स्थिति',
+                'Action': 'कार्रवाई',
+                'Find Internships': 'इंटर्नशिप खोजें',
+                'Best Matches': 'सबसे अच्छे मैच',
+                'Skill Gaps': 'कौशल की कमी',
+                'Required Skills': 'आवश्यक कौशल',
+                'Skills Required': 'आवश्यक कौशल',
+                'View Details': 'विवरण देखें',
+                'Applied On': 'आवेदन की तिथि',
+                'Months': 'महीने',
+                'Match': 'मिलान',
+                'Login': 'लॉगिन',
+                'Sign Up': 'साइन अप',
+                'Logout': 'लॉगआउट',
+                'My Profile': 'मेरी प्रोफ़ाइल',
+                'Dashboard': 'डैशबोर्ड',
+                'No recommendations matched': 'कोई सिफारिश नहीं मिली',
+                'Update My Skills': 'मेरे कौशल अपडेट करें',
+                'Browse All': 'सभी देखें',
+                'Top missing skills from your matches.': 'आपके मैच से गायब शीर्ष कौशल।',
+                'Learning these increases match score.': 'इन्हें सीखने से मैच स्कोर बढ़ता है।',
+                'You haven\'t applied for any internships yet.': 'आपने अभी तक किसी इंटर्नशिप के लिए आवेदन नहीं किया।',
+                'Track the status of internships you\'ve applied for.': 'जिन इंटर्नशिप के लिए आवेदन किया है उनकी स्थिति ट्रैक करें।',
+                'No internships available yet.': 'अभी कोई इंटर्नशिप उपलब्ध नहीं है।',
+                'Designed for builders.': 'निर्माताओं के लिए डिज़ाइन किया गया।',
+                'Language': 'भाषा',
+                'Not set yet': 'अभी सेट नहीं',
+                'Reviewing': 'समीक्षा में',
+                'Accepted': 'स्वीकृत',
+                'Applied': 'आवेदन किया',
+                'Applications': 'आवेदन',
+                'AI Matching': 'AI मिलान',
+                'Skill Analysis': 'कौशल विश्लेषण',
+                'Get Started': 'शुरू करें',
+                'Top Recommendations': 'शीर्ष सिफारिशें',
+                'Your AI-Powered': 'आपका AI-संचालित',
+                'Internship': 'इंटर्नशिप',
+                'Guide.': 'गाइड।',
+                'REQUIRED SKILLS': 'आवश्यक कौशल',
+                'of available opportunities across all domains.': 'सभी क्षेत्रों में उपलब्ध अवसरों की।',
+                'to see your recommendations based on your skills': 'अपने कौशल के आधार पर सिफारिशें देखने के लिए',
+                'subtitle_all_internships': 'सभी डोमेन में उपलब्ध अवसरों की पूरी निर्देशिका देखें।',
+                'subtitle_my_applications': 'आपके द्वारा आवेदन किए गए इंटर्नशिप की स्थिति ट्रैक करें।',
+                'subtitle_recommendations': 'आपके कौशल के आधार पर',
+                'to see your recommendations based on your skills': 'अपने कौशल के आधार पर सिफारिशें देखने के लिए',
+                'roles > 2% match': 'भूमिकाएं > 2% मिलान',
+                'No skills to learn yet!': 'अभी सीखने के लिए कोई कौशल नहीं है!',
+                'No recommendations matched criteria': 'हमें आपके वर्तमान कौशल के लिए 2% से अधिक मैच प्रतिशत वाली कोई इंटर्नशिप नहीं मिली।',
+                'total internships': 'कुल इंटर्नशिप'
+            },
+            'te': {
+                'FUTUREPATH': 'ఫ్యూచర్ పాత్',
+                'Browse Internships': 'ఇంటర్న్‌షిప్‌లను చూడండి',
+                'Recommendations': 'సిఫార్సులు',
+                'My Applications': 'నా దరఖాస్తులు',
+                'Admin Dashboard': 'అడ్మిన్ డాష్‌బోర్డ్',
+                'Explore All Internships': 'అన్ని ఇంటర్న్‌షిప్‌లను అన్వేషించండి',
+                'Browse the full catalog': 'పూర్తి కేటలాగ్‌ చూడండి',
+                'Full Catalog': 'పూర్తి కేటలాగ్',
+                'Internship Title': 'ఇంటర్న్‌షిప్ టైటిల్',
+                'Company': 'కంపెనీ',
+                'Stipend': 'స్టైపెండ్',
+                'Duration': 'వ్యవధి',
+                'Location': 'ప్రాంతం',
+                'Apply Now': 'ఇప్పుడే దరఖాస్తు చేసుకోండి',
+                'Already Applied': 'ముందే దరఖాస్తు చేసారు',
+                'Personalized For You': 'మీ కోసం ప్రత్యేకంగా',
+                'Based on your skills': 'మీ నైపుణ్యాల ఆధారంగా',
+                'Edit My Skills': 'నా నైపుణ్యాలను సవరించండి',
+                'Application History': 'దరఖాస్తు చరిత్ర',
+                'Successfully applied': 'విజయవంతంగా దరఖాస్తు చేసారు',
+                'Status': 'స్థితి',
+                'Action': 'చర్య',
+                'Find Internships': 'ఇంటర్న్‌షిప్‌లను కనుగొనండి',
+                'Best Matches': 'ఉత్తమ మ్యాచ్‌లు',
+                'Skill Gaps': 'నైపుణ్యాల లోపాలు',
+                'Required Skills': 'అవసరమైన నైపుణ్యాలు',
+                'Skills Required': 'అవసరమైన నైపుణ్యాలు',
+                'View Details': 'వివరాలు చూడండి',
+                'Applied On': 'దరఖాస్తు తేదీ',
+                'Months': 'నెలలు',
+                'Login': 'లాగిన్',
+                'Sign Up': 'సైన్ అప్',
+                'Logout': 'లాగౌట్',
+                'My Profile': 'నా ప్రొఫైల్',
+                'Dashboard': 'డాష్‌బోర్డ్',
+                'No recommendations matched': 'సరిపోలే సిఫార్సులు లేవు',
+                'Update My Skills': 'నా నైపుణ్యాలను నవీకరించండి',
+                'Browse All': 'అన్నీ చూడండి',
+                'Language': 'భాష',
+                'Reviewing': 'సమీక్షలో',
+                'Accepted': 'ఆమోదించారు',
+                'Applied': 'దరఖాస్తు చేసారు',
+                'Get Started': 'ప్రారంభించండి',
+                'Top Recommendations': 'అగ్రశ్రేణి సిఫార్సులు',
+                'REQUIRED SKILLS': 'అవసరమైన నైపుణ్యాలు',
+                'Match': 'మ్యాచ్',
+                'No internships available yet.': 'ఇంకా ఇంటర్న్‌షిప్‌లు అందుబాటులో లేవు।',
+                'of available opportunities across all domains.': 'అన్ని విభాగాలలో అందుబాటులో ఉన్న అవకాశాల.',
+                'to see your recommendations based on your skills': 'మీ నైపుణ్యాల ఆధారంగా సిఫార్సులను చూడటానికి',
+                'Not set yet': 'ఇంకా సెట్ చేయలేదు',
+                'subtitle_all_internships': 'అన్ని విభాగాలలో అందుబాటులో ఉన్న అవకాశాల పూర్తి కేటలాగ్‌ను చూడండి.',
+                'subtitle_my_applications': 'మీరు దరఖాస్తు చేసిన ఇంటర్న్‌షిప్‌ల స్థితిని ట్రాక్ చేయండి.',
+                'subtitle_recommendations': 'మీ నైపుణ్యాల ఆధారంగా',
+                'roles > 2% match': 'పాత్రలు > 2% మ్యాచ్',
+                'No skills to learn yet!': 'ఇంకా నేర్చుకోవడానికి నైపుణ్యాలు లేవు!',
+                'No recommendations matched criteria': 'మీ ప్రస్తుత నైపుణ్యాల కోసం 2% కంటే ఎక్కువ మ్యాచ్ శాతం ఉన్న ఇంటర్న్‌షిప్‌లేవీ మాకు కనిపించలేదు.',
+                'total internships': 'మొత్తం ఇంటర్న్‌షిప్‌లు',
+                'Track the status of internships you\'ve applied for.': 'మీరు దరఖాస్తు చేసిన ఇంటర్న్‌షిప్‌ల స్థితిని ట్రాక్ చేయండి.'
+            }
+            ,
+            'ta': {
+                'FUTUREPATH': 'ஃப்யூச்சர்பாத்',
+                'Browse Internships': 'இன்டர்ன்ஷிப்களை உலாவுக',
+                'Recommendations': 'பரிந்துரைகள்',
+                'My Applications': 'என் விண்ணப்பங்கள்',
+                'Admin Dashboard': 'நிர்வாக டாஷ்போர்டு',
+                'Explore All Internships': 'அனைத்து இன்டர்ன்ஷிப்களையும் ஆராயுங்கள்',
+                'Browse the full catalog': 'முழு பட்டியலை உலாவுக',
+                'Full Catalog': 'முழு பட்டியல்',
+                'Internship Title': 'இன்டர்ன்ஷிப் தலைப்பு',
+                'Company': 'நிறுவனம்',
+                'Stipend': 'உதவித்தொகை',
+                'Duration': 'காலம்',
+                'Location': 'இடம்',
+                'Apply Now': 'இப்போதே விண்ணப்பிக்கவும்',
+                'Already Applied': 'ஏற்கனவே விண்ணப்பித்தீர்கள்',
+                'Personalized For You': 'உங்களுக்காக தனிப்பயனாக்கப்பட்டது',
+                'Based on your skills': 'உங்கள் திறன்களின் அடிப்படையில்',
+                'Edit My Skills': 'என் திறன்களை திருத்துக',
+                'Application History': 'விண்ணப்ப வரலாறு',
+                'Successfully applied': 'வெற்றிகரமாக விண்ணப்பித்தீர்கள்',
+                'Status': 'நிலை',
+                'Action': 'செயல்',
+                'Find Internships': 'இன்டர்ன்ஷிப்களைக் கண்டறியுங்கள்',
+                'Best Matches': 'சிறந்த பொருத்தங்கள்',
+                'Skill Gaps': 'திறன் இடைவெளிகள்',
+                'Required Skills': 'தேவையான திறன்கள்',
+                'Skills Required': 'தேவையான திறன்கள்',
+                'View Details': 'விவரங்கள் காண்க',
+                'Applied On': 'விண்ணப்பித்த தேதி',
+                'Months': 'மாதங்கள்',
+                'Match': 'பொருத்தம்',
+                'Login': 'உள்நுழைக',
+                'Sign Up': 'பதிவு செய்க',
+                'Logout': 'வெளியேறு',
+                'Not set yet': 'இன்னும் அமைக்கப்படவில்லை',
+                'My Profile': 'என் சுயவிவரம்',
+                'Dashboard': 'டாஷ்போர்டு',
+                'No recommendations matched': 'பொருத்தமான பரிந்துரைகள் இல்லை',
+                'Update My Skills': 'என் திறன்களை புதுப்பிக்கவும்',
+                'Browse All': 'அனைத்தும் காண்க',
+                'Language': 'மொழி',
+                'of available opportunities across all domains.': 'அனைத்து துறைகளிலும் கிடைக்கும் வாய்ப்புகள்.',
+                'to see your recommendations based on your skills': 'உங்கள் திறன்களின் அடிப்படையில் பரிந்துரைகளைப் பார்க்க',
+                'subtitle_all_internships': 'அனைத்து துறைகளிலும் கிடைக்கும் வாய்ப்புகளின் முழு பட்டியலை உலாவுக.',
+                'subtitle_my_applications': 'நீங்கள் விண்ணப்பித்த இன்டர்ன்ஷிப்களின் நிலையை கண்காணிக்கவும்.',
+                'subtitle_recommendations': 'உங்கள் திறன்களின் அடிப்படையில்',
+                'Track the status of internships you\'ve applied for.': 'நீங்கள் விண்ணப்பித்த இன்டர்ன்ஷிப்களின் நிலையை கண்காணிக்கவும்.',
+                'roles > 2% match': 'பங்கு > 2% பொருத்தம்',
+                'No skills to learn yet!': 'இன்னும் கற்க வேண்டிய திறன்கள் இல்லை!',
+                'No recommendations matched criteria': 'உங்கள் தற்போதைய திறன்களுக்கு 2% க்கும் அதிகமான பொருத்தம் கொண்ட இன்டர்ன்ஷிப்கள் எதுவும் எங்களுக்கு கிடைக்கவில்லை.',
+                'total internships': 'மொத்த இன்டர்ன்ஷிப்கள்',
+                'Reviewing': 'மதிப்பாய்வு செய்யப்படுகிறது',
+                'Accepted': 'ஏற்றுக்கொள்ளப்பட்டது',
+                'Applied': 'விண்ணப்பிக்கப்பட்டது',
+                'Applications': 'விண்ணப்பங்கள்',
+                'Top missing skills from your matches.': 'உங்கள் பொருத்தங்களில் இல்லாத திறன்கள்.',
+                'Learning these increases match score.': 'இவற்றை கற்றால் பொருத்த மதிப்பெண் அதிகரிக்கும்.',
+                'You haven\'t applied for any internships yet.': 'நீங்கள் இன்னும் எந்த இன்டர்ன்ஷிப்பிற்கும் விண்ணப்பிக்கவில்லை.',
+                'Track the status of internships you\'ve applied for.': 'நீங்கள் விண்ணப்பித்த இன்டர்ன்ஷிப்களின் நிலையை கண்காணிக்கவும்.',
+                'No internships available yet.': 'இன்னும் இன்டர்ன்ஷிப்கள் கிடைக்கவில்லை.',
+                'Designed for builders.': 'உருவாக்குபவர்களுக்காக வடிவமைக்கப்பட்டது.'
+            },
+            'pa': {
+                'FUTUREPATH': 'ਫਿਊਚਰਪਾਥ',
+                'Browse Internships': 'ਇੰਟਰਨਸ਼ਿਪ ਦੇਖੋ',
+                'Recommendations': 'ਸਿਫ਼ਾਰਸ਼ਾਂ',
+                'My Applications': 'ਮੇਰੀਆਂ ਅਰਜ਼ੀਆਂ',
+                'Admin Dashboard': 'ਐਡਮਿਨ ਡੈਸ਼ਬੋਰਡ',
+                'Explore All Internships': 'ਸਾਰੀਆਂ ਇੰਟਰਨਸ਼ਿਪਾਂ ਦੇਖੋ',
+                'Browse the full catalog': 'ਪੂਰੀ ਕੈਟਾਲਾਗ ਦੇਖੋ',
+                'Full Catalog': 'ਪੂਰੀ ਕੈਟਾਲਾਗ',
+                'Internship Title': 'ਇੰਟਰਨਸ਼ਿਪ ਦਾ ਸਿਰਲੇਖ',
+                'Company': 'ਕੰਪਨੀ',
+                'Stipend': 'ਵਜ਼ੀਫ਼ਾ',
+                'Duration': 'ਮਿਆਦ',
+                'Location': 'ਸਥਾਨ',
+                'Apply Now': 'ਹੁਣੇ ਅਰਜ਼ੀ ਦਿਓ',
+                'Already Applied': 'ਪਹਿਲਾਂ ਹੀ ਅਰਜ਼ੀ ਦਿੱਤੀ ਹੈ',
+                'Personalized For You': 'ਤੁਹਾਡੇ ਲਈ ਵਿਅਕਤੀਗਤ',
+                'Based on your skills': 'ਤੁਹਾਡੇ ਹੁਨਰਾਂ ਦੇ ਆਧਾਰ ਤੇ',
+                'Edit My Skills': 'ਮੇਰੇ ਹੁਨਰ ਸੰਪਾਦਿਤ ਕਰੋ',
+                'Application History': 'ਅਰਜ਼ੀ ਦਾ ਇਤਿਹਾਸ',
+                'Successfully applied': 'ਸਫਲਤਾਪੂਰਵਕ ਅਰਜ਼ੀ ਦਿੱਤੀ',
+                'Status': 'ਸਥਿਤੀ',
+                'Action': 'ਕਾਰਵਾਈ',
+                'Find Internships': 'ਇੰਟਰਨਸ਼ਿਪ ਲੱਭੋ',
+                'Best Matches': 'ਸਭ ਤੋਂ ਵਧੀਆ ਮੈਚ',
+                'Skill Gaps': 'ਹੁਨਰ ਦੀ ਕਮੀ',
+                'Required Skills': 'ਲੋੜੀਂਦੇ ਹੁਨਰ',
+                'Skills Required': 'ਲੋੜੀਂਦੇ ਹੁਨਰ',
+                'View Details': 'ਵੇਰਵੇ ਦੇਖੋ',
+                'Applied On': 'ਅਰਜ਼ੀ ਦੀ ਤਾਰੀਖ',
+                'Months': 'ਮਹੀਨੇ',
+                'Match': 'ਮੇਲ',
+                'Login': 'ਲੌਗਇਨ',
+                'Sign Up': 'ਸਾਈਨ ਅੱਪ',
+                'Logout': 'ਲੌਗਆਉਟ',
+                'My Profile': 'ਮੇਰੀ ਪ੍ਰੋਫਾਈਲ',
+                'Dashboard': 'ਡੈਸ਼ਬੋਰਡ',
+                'No recommendations matched': 'ਕੋਈ ਸਿਫ਼ਾਰਸ਼ ਨਹੀਂ ਮਿਲੀ',
+                'Update My Skills': 'ਮੇਰੇ ਹੁਨਰ ਅੱਪਡੇਟ ਕਰੋ',
+                'Browse All': 'ਸਭ ਦੇਖੋ',
+                'Language': 'ਭਾਸ਼ਾ',
+                'Reviewing': 'ਸਮੀਖਿਆ ਅਧੀਨ',
+                'Accepted': 'ਸਵੀਕਾਰ ਕੀਤਾ',
+                'Applied': 'ਅਰਜ਼ੀ ਦਿੱਤੀ',
+                'Applications': 'ਅਰਜ਼ੀਆਂ',
+                'Top missing skills from your matches.': 'ਤੁਹਾਡੇ ਮੈਚਾਂ ਵਿੱਚੋਂ ਗੁੰਮ ਹੋਏ ਹੁਨਰ।',
+                'Learning these increases match score.': 'ਇਹ ਸਿੱਖਣ ਨਾਲ ਮੈਚ ਸਕੋਰ ਵਧਦਾ ਹੈ।',
+                'You haven\'t applied for any internships yet.': 'ਤੁਸੀਂ ਅਜੇ ਕਿਸੇ ਇੰਟਰਨਸ਼ਿਪ ਲਈ ਅਰਜ਼ੀ ਨਹੀਂ ਦਿੱਤੀ।',
+                'Track the status of internships you\'ve applied for.': 'ਜਿਨ੍ਹਾਂ ਇੰਟਰਨਸ਼ਿਪਾਂ ਲਈ ਅਰਜ਼ੀ ਦਿੱਤੀ ਹੈ ਉਨ੍ਹਾਂ ਦੀ ਸਥਿਤੀ ਟ੍ਰੈਕ ਕਰੋ।',
+                'No internships available yet.': 'ਅਜੇ ਕੋਈ ਇੰਟਰਨਸ਼ਿਪ ਉਪਲਬਧ ਨਹੀਂ।',
+                'Designed for builders.': 'ਬਣਾਉਣ ਵਾਲਿਆਂ ਲਈ ਡਿਜ਼ਾਈਨ ਕੀਤਾ।',
+                'subtitle_all_internships': 'ਸਾਰੇ ਡੋਮੇਨਾਂ ਵਿੱਚ ਉਪਲਬਧ ਮੌਕਿਆਂ ਦੀ ਪੂਰੀ ਕੈਟਾਲਾਗ ਦੇਖੋ।',
+                'subtitle_my_applications': 'ਜਿਨ੍ਹਾਂ ਇੰਟਰਨਸ਼ਿਪਾਂ ਲਈ ਤੁਸੀਂ ਅਰਜ਼ੀ ਦਿੱਤੀ ਹੈ ਉਨ੍ਹਾਂ ਦੀ ਸਥਿਤੀ ਟ੍ਰੈਕ ਕਰੋ।',
+                'subtitle_recommendations': 'ਤੁਹਾਡੇ ਹੁਨਰਾਂ ਦੇ ਆਧਾਰ ਤੇ',
+                'Not set yet': 'ਅਜੇ ਸੈੱਟ ਨਹੀਂ',
+                'total internships': 'ਕੁੱਲ ਇੰਟਰਨਸ਼ਿਪਾਂ',
+                'roles > 2% match': 'ਭੂਮਿਕਾਵਾਂ > 2% ਮੇਲ',
+                'No skills to learn yet!': 'ਅਜੇ ਸਿੱਖਣ ਲਈ ਕੋਈ ਹੁਨਰ ਨਹੀਂ ਹੈ!',
+                'No recommendations matched criteria': 'ਸਾਨੂੰ ਤੁਹਾਡੇ ਮੌਜੂਦਾ ਹੁਨਰਾਂ ਲਈ 2% ਤੋਂ ਵੱਧ ਮੈਚ ਪ੍ਰਤੀਸ਼ਤ ਵਾਲੀ ਕੋਈ ਇੰਟਰਨਸ਼ਿਪ ਨਹੀਂ ਮਿਲੀ।',
+                'of available opportunities across all domains.': 'ਸਾਰੇ ਡੋਮੇਨਾਂ ਵਿੱਚ ਉਪਲਬਧ ਮੌਕਿਆਂ ਦੀ।',
+                'to see your recommendations based on your skills': 'ਆਪਣੇ ਹੁਨਰ ਦੇ ਅਧਾਰ ਤੇ ਸਿਫਾਰਸ਼ਾਂ ਦੇਖਣ ਲਈ'
+            },
+            'ml': {
+                'FUTUREPATH': 'ഫ്യൂച്ചർ‌പാത്ത്',
+                'Browse Internships': 'ഇന്റേൺഷിപ്പുകൾ ബ്രൗസ് ചെയ്യുക',
+                'Recommendations': 'ശുപാർശകൾ',
+                'My Applications': 'എന്റെ അപേക്ഷകൾ',
+                'Admin Dashboard': 'അഡ്മിൻ ഡാഷ്‌ബോർഡ്',
+                'Explore All Internships': 'എല്ലാ ഇന്റേൺഷിപ്പുകളും പര്യവേക്ഷണം ചെയ്യുക',
+                'Browse the full catalog': 'മുഴുവൻ കാറ്റലോഗ് കാണുക',
+                'Full Catalog': 'മുഴുവൻ കാറ്റലോഗ്',
+                'Internship Title': 'ഇന്റേൺഷിപ്പ് തലക്കെട്ട്',
+                'Company': 'കമ്പനി',
+                'Stipend': 'സ്റ്റൈപ്പൻഡ്',
+                'Duration': 'കാലാവധി',
+                'Location': 'സ്ഥലം',
+                'Apply Now': 'ഇപ്പോൾ അപേക്ഷിക്കുക',
+                'Already Applied': 'ഇതിനോടകം അപേക്ഷിച്ചു',
+                'Personalized For You': 'നിങ്ങൾക്കായി വ്യക്തിഗതമാക്കിയത്',
+                'Based on your skills': 'നിങ്ങളുടെ കഴിവുകളുടെ അടിസ്ഥാനത്തിൽ',
+                'Edit My Skills': 'എന്റെ കഴിവുകൾ തിരുത്തുക',
+                'Application History': 'അപേക്ഷ ചരിത്രം',
+                'Successfully applied': 'വിജയകരമായി അപേക്ഷിച്ചു',
+                'Status': 'നില',
+                'Action': 'നടപടി',
+                'Find Internships': 'ഇന്റേൺഷിപ്പുകൾ കണ്ടെത്തുക',
+                'Best Matches': 'ഏറ്റവും മികച്ച പൊരുത്തങ്ങൾ',
+                'Skill Gaps': 'കഴിവ് കുറവുകൾ',
+                'Required Skills': 'ആവശ്യമായ കഴിവുകൾ',
+                'Skills Required': 'ആവശ്യമായ കഴിവുകൾ',
+                'View Details': 'വിശദാംശങ്ങൾ കാണുക',
+                'Applied On': 'അപേക്ഷിച്ച തീയതി',
+                'Months': 'മാസങ്ങൾ',
+                'Match': 'പൊരുത്തം',
+                'Login': 'ലോഗിൻ',
+                'Sign Up': 'സൈൻ അപ്പ്',
+                'Logout': 'ലോഗ്ഔട്ട്',
+                'My Profile': 'എന്റെ പ്രൊഫൈൽ',
+                'Dashboard': 'ഡാഷ്‌ബോർഡ്',
+                'No recommendations matched': 'പൊരുത്തമുള്ള ശുപാർശകളൊന്നും ലഭ്യമല്ല',
+                'Update My Skills': 'എന്റെ കഴിവുകൾ അപ്‌ഡേറ്റ് ചെയ്യുക',
+                'Browse All': 'എല്ലാം കാണുക',
+                'Language': 'ഭാഷ',
+                'Reviewing': 'അവലോകനം ചെയ്യുന്നു',
+                'Accepted': 'സ്വീകരിച്ചു',
+                'Applied': 'അപേക്ഷിച്ചു',
+                'Applications': 'അപേക്ഷകൾ',
+                'Top missing skills from your matches.': 'നിങ്ങളുടെ മാച്ചുകളിൽ ഇല്ലാത്ത കഴിവുകൾ.',
+                'Learning these increases match score.': 'ഇവ പഠിക്കുന്നത് മാച്ച് സ്‌കോർ വർദ്ധിപ്പിക്കും.',
+                'You haven\'t applied for any internships yet.': 'നിങ്ങൾ ഇതുവരെ ഒരു ഇന്റേൺഷിപ്പിനും അപേക്ഷിച്ചിട്ടില്ല.',
+                'Track the status of internships you\'ve applied for.': 'നിങ്ങൾ അപേക്ഷിച്ച ഇന്റേൺഷിപ്പുകളുടെ നില ട്രാക്ക് ചെയ്യുക.',
+                'No internships available yet.': 'ഇതുവരെ ഇന്റേൺഷിപ്പുകളൊന്നും ലഭ്യമല്ല.',
+                'Designed for builders.': 'നിർമ്മാതാക്കൾക്കായി രൂപകൽപ്പന ചെയ്തത്।',
+                'subtitle_all_internships': 'എല്ലാ മേഖലകളിലും ലഭ്യമായ അവസരങ്ങളുടെ മുഴുവൻ കാറ്റലോഗും ബ്രൗസ് ചെയ്യുക.',
+                'subtitle_my_applications': 'നിങ്ങൾ അപേക്ഷിച്ച ഇന്റേൺഷിപ്പുകളുടെ നില ട്രാക്ക് ചെയ്യുക.',
+                'subtitle_recommendations': 'നിങ്ങളുടെ കഴിവുകളുടെ അടിസ്ഥാനത്തിൽ',
+                'Not set yet': 'ഇതുവരെ സജ്ജീകരിച്ചിട്ടില്ല',
+                'total internships': 'ആകെ ഇന്റേൺഷിപ്പുകൾ',
+                'roles > 2% match': 'റോൾസ് > 2% പൊരുത്തം',
+                'No skills to learn yet!': 'ഇപ്പോൾ പഠിക്കാൻ കഴിവുകളൊന്നുമില്ല!',
+                'No recommendations matched criteria': 'നിങ്ങളുടെ നിലവിലെ കഴിവുകൾക്കായി 2%-ൽ കൂടുതൽ മാച്ച് ശതമാനമുള്ള ഇന്റേൺഷിപ്പുകളൊന്നും ഞങ്ങൾക്ക് കണ്ടെത്താനായില്ല।',
+                'of available opportunities across all domains.': 'എല്ലാ മേഖലകളിലും ലഭ്യമായ അവസരങ്ങളുടെ।',
+                'to see your recommendations based on your skills': 'നിങ്ങളുടെ കഴിവുകളുടെ അടിസ്ഥാനത്തിൽ ശുപാർശകൾ കാണുന്നതിന്'
+            },
+            'kn': {
+                'FUTUREPATH': 'ಫ್ಯೂಚರ್‌ಪಾತ್',
+                'Browse Internships': 'ಇಂಟರ್ನ್‌ಶಿಪ್ ವೀಕ್ಷಿಸಿ',
+                'Recommendations': 'ಶಿಫಾರಸುಗಳು',
+                'My Applications': 'ನನ್ನ ಅರ್ಜಿಗಳು',
+                'Admin Dashboard': 'ಅಡ್ಮಿನ್ ಡ್ಯಾಶ್‌ಬೋರ್ಡ್',
+                'Explore All Internships': 'ಎಲ್ಲಾ ಇಂಟರ್ನ್‌ಶಿಪ್‌ಗಳನ್ನು ಅನ್ವೇಷಿಸಿ',
+                'Browse the full catalog': 'ಪೂರ್ಣ ಕ್ಯಾಟಲಾಗ್ ವೀಕ್ಷಿಸಿ',
+                'Full Catalog': 'ಪೂರ್ಣ ಕ್ಯಾಟಲಾಗ್',
+                'Internship Title': 'ಇಂಟರ್ನ್‌ಶಿಪ್ ಶೀರ್ಷಿಕೆ',
+                'Company': 'ಕಂಪನಿ',
+                'Stipend': 'ವಿದ್ಯಾರ್ಥಿ ವೇತನ',
+                'Duration': 'ಅವಧಿ',
+                'Location': 'ಸ್ಥಳ',
+                'Apply Now': 'ಈಗ ಅರ್ಜಿ ಸಲ್ಲಿಸಿ',
+                'Already Applied': 'ಈಗಾಗಲೇ ಅರ್ಜಿ ಸಲ್ಲಿಸಲಾಗಿದೆ',
+                'Personalized For You': 'ನಿಮಗಾಗಿ ವೈಯಕ್ತೀಕರಿಸಲಾಗಿದೆ',
+                'Based on your skills': 'ನಿಮ್ಮ ಕೌಶಲ್ಯಗಳ ಆಧಾರದ ಮೇಲೆ',
+                'Edit My Skills': 'ನನ್ನ ಕೌಶಲ್ಯಗಳನ್ನು ಸಂಪಾದಿಸಿ',
+                'Application History': 'ಅರ್ಜಿ ಇತಿಹಾಸ',
+                'Successfully applied': 'ಯಶಸ್ವಿಯಾಗಿ ಅರ್ಜಿ ಸಲ್ಲಿಸಲಾಗಿದೆ',
+                'Status': 'ಸ್ಥಿತಿ',
+                'Action': 'ಕ್ರಿಯೆ',
+                'Find Internships': 'ಇಂಟರ್ನ್‌ಶಿಪ್‌ಗಳನ್ನು ಹುಡುಕಿ',
+                'Best Matches': 'ಅತ್ಯುತ್ತಮ ಹೊಂದಾಣಿಕೆಗಳು',
+                'Skill Gaps': 'ಕೌಶಲ್ಯ ಕೊರತೆಗಳು',
+                'Required Skills': 'ಅಗತ್ಯ ಕೌಶಲ್ಯಗಳು',
+                'Skills Required': 'ಅಗತ್ಯ ಕೌಶಲ್ಯಗಳು',
+                'View Details': 'ವಿವರಗಳು ವೀಕ್ಷಿಸಿ',
+                'Applied On': 'ಅರ್ಜಿ ಸಲ್ಲಿಸಿದ ದಿನಾಂಕ',
+                'Months': 'ತಿಂಗಳುಗಳು',
+                'Match': 'ಹೊಂದಾಣಿಕೆ',
+                'Login': 'ಲಾಗಿನ್',
+                'Sign Up': 'ಸೈನ್ ಅಪ್',
+                'Logout': 'ಲಾಗ್ಔಟ್',
+                'My Profile': 'ನನ್ನ ಪ್ರೊಫೈಲ್',
+                'Dashboard': 'ಡ್ಯಾಶ್‌ಬೋರ್ಡ್',
+                'No recommendations matched': 'ಯಾವುದೇ ಶಿಫಾರಸು ಹೊಂದಿಕೆಯಾಗಲಿಲ್ಲ',
+                'Update My Skills': 'ನನ್ನ ಕೌಶಲ್ಯಗಳನ್ನು ನವೀಕರಿಸಿ',
+                'Browse All': 'ಎಲ್ಲಾ ವೀಕ್ಷಿಸಿ',
+                'Language': 'ಭಾಷೆ',
+                'Reviewing': 'ಪರಿಶೀಲನೆಯಲ್ಲಿ',
+                'Accepted': 'ಸ್ವೀಕರಿಸಲಾಗಿದೆ',
+                'Applied': 'ಅರ್ಜಿ ಸಲ್ಲಿಸಲಾಗಿದೆ',
+                'Applications': 'ಅರ್ಜಿಗಳು',
+                'Top missing skills from your matches.': 'ನಿಮ್ಮ ಮ್ಯಾಚ್‌ಗಳಲ್ಲಿ ಇಲ್ಲದ ಕೌಶಲ್ಯಗಳು.',
+                'Learning these increases match score.': 'ಇವುಗಳನ್ನು ಕಲಿಯುವುದರಿಂದ ಮ್ಯಾಚ್ ಸ್ಕೋರ್ ಹೆಚ್ಚಾಗುತ್ತದೆ.',
+                'You haven\'t applied for any internships yet.': 'ನೀವು ಇನ್ನೂ ಯಾವುದೇ ಇಂಟರ್ನ್‌ಶಿಪ್‌ಗೆ ಅರ್ಜಿ ಸಲ್ಲಿಸಿಲ್ಲ.',
+                'Track the status of internships you\'ve applied for.': 'ನೀವು ಅರ್ಜಿ ಸಲ್ಲಿಸಿದ ಇಂಟರ್ನ್‌ಶಿಪ್‌ಗಳ ಸ್ಥಿತಿಯನ್ನು ಟ್ರ್ಯಾಕ್ ಮಾಡಿ.',
+                'No internships available yet.': 'ಇನ್ನೂ ಯಾವುದೇ ಇಂಟರ್ನ್‌ಶಿಪ್ ಲಭ್ಯವಿಲ್ಲ.',
+                'Designed for builders.': 'ನಿರ್ಮಾತೃಗಳಿಗಾಗಿ ವಿನ್ಯಾಸಗೊಳಿಸಲಾಗಿದೆ।',
+                'subtitle_all_internships': 'ಎಲ್ಲಾ ಡೊಮೇನ್‌ಗಳಲ್ಲಿ ಲಭ್ಯವಿರುವ ಅವಕಾಶಗಳ ಸಂಪೂರ್ಣ ಕ್ಯಾಟಲಾಗ್ ಅನ್ನು ವೀಕ್ಷಿಸಿ.',
+                'subtitle_my_applications': 'ನೀವು ಅರ್ಜಿ ಸಲ್ಲಿಸಿದ ಇಂಟರ್ನ್‌ಶಿಪ್‌ಗಳ ಸ್ಥಿತಿಯನ್ನು ಟ್ರ್ಯಾಕ್ ಮಾಡಿ.',
+                'subtitle_recommendations': 'ನಿಮ್ಮ ಕೌಶಲ್ಯಗಳ ಆಧಾರದ ಮೇಲೆ',
+                'Not set yet': 'ಇನ್ನೂ ಹೊಂದಿಸಲಾಗಿಲ್ಲ',
+                'total internships': 'ಒಟ್ಟು ಇಂಟರ್ನ್‌ಶಿಪ್‌ಗಳು',
+                'roles > 2% match': 'ಪಾತ್ರಗಳು > 2% ಹೊಂದಾಣಿಕೆ',
+                'No skills to learn yet!': 'ಕಲಿಯಲು ಇನ್ನೂ ಯಾವುದೇ ಕೌಶಲ್ಯಗಳಿಲ್ಲ!',
+                'No recommendations matched criteria': 'ನಿಮ್ಮ ಪ್ರಸ್ತುತ ಕೌಶಲ್ಯಗಳಿಗಾಗಿ 2% ಕ್ಕಿಂತ ಹೆಚ್ಚು ಮ್ಯಾಚ್ ಶೇಕಡಾವಾರು ಹೊಂದಿರುವ ಯಾವುದೇ ಇಂಟರ್ನ್‌ಶಿಪ್‌ಗಳು ನಮಗೆ ಕಂಡುಬಂದಿಲ್ಲ।',
+                'of available opportunities across all domains.': 'ಎಲ್ಲಾ ಡೊಮೇನ್‌ಗಳಲ್ಲಿ ಲಭ್ಯವಿರುವ ಅವಕಾಶಗಳ।',
+                'to see your recommendations based on your skills': 'ನಿಮ್ಮ ಕೌಶಲ್ಯಗಳ ಆಧಾರದ ಮೇಲೆ ಶಿಫಾರಸುಗಳನ್ನು ನೋಡಲು'
+            },
+            'bn': {
+                'FUTUREPATH': 'ফিউচারপাথ',
+                'Browse Internships': 'ইন্টার্নশিপ দেখুন',
+                'Recommendations': 'সুপারিশ',
+                'My Applications': 'আমার আবেদন',
+                'Admin Dashboard': 'অ্যাডমিন ড্যাশবোর্ড',
+                'Explore All Internships': 'সমস্ত ইন্টার্নশিপ দেখুন',
+                'Browse the full catalog': 'সম্পূর্ণ তালিকা দেখুন',
+                'Full Catalog': 'সম্পূর্ণ তালিকা',
+                'Internship Title': 'ইন্টার্নশিপের শিরোনাম',
+                'Company': 'কোম্পানি',
+                'Stipend': 'বৃত্তি',
+                'Duration': 'সময়কাল',
+                'Location': 'অবস্থান',
+                'Apply Now': 'এখনই আবেদন করুন',
+                'Already Applied': 'ইতিমধ্যে আবেদন করা হয়েছে',
+                'Personalized For You': 'আপনার জন্য বিশেষভাবে',
+                'Based on your skills': 'আপনার দক্ষতার উপর ভিত্তি করে',
+                'Edit My Skills': 'আমার দক্ষতা সম্পাদনা করুন',
+                'Application History': 'আবেদনের ইতিহাস',
+                'Successfully applied': 'সফলভাবে আবেদন করা হয়েছে',
+                'Status': 'অবস্থা',
+                'Action': 'কার্যক্রম',
+                'Find Internships': 'ইন্টার্নশিপ খুঁজুন',
+                'Best Matches': 'সেরা মিল',
+                'Skill Gaps': 'দক্ষতার ঘাটতি',
+                'Required Skills': 'প্রয়োজনীয় দক্ষতা',
+                'Skills Required': 'প্রয়োজনীয় দক্ষতা',
+                'View Details': 'বিস্তারিত দেখুন',
+                'Applied On': 'আবেদনের তারিখ',
+                'Months': 'মাস',
+                'Login': 'লগইন',
+                'Sign Up': 'সাইন আপ',
+                'Logout': 'লগআউট',
+                'My Profile': 'আমার প্রোফাইল',
+                'Dashboard': 'ড্যাশবোর্ড',
+                'No recommendations matched': 'কোনো সুপারিশ পাওয়া যায়নি',
+                'Update My Skills': 'আমার দক্ষতা আপডেট করুন',
+                'Browse All': 'সব দেখুন',
+                'Language': 'ভাষা',
+                'Reviewing': 'পর্যালোচনায়',
+                'Accepted': 'গৃহীত',
+                'Applied': 'আবেদন করা হয়েছে',
+                'Get Started': 'শুরু করুন',
+                'Top Recommendations': 'শীর্ষ সুপারিশ',
+                'REQUIRED SKILLS': 'প্রয়োজনীয় দক্ষতা',
+                'No internships available yet.': 'এখনও কোনো ইন্টার্নশিপ উপলব্ধ নেই।',
+                'AI Matching': 'AI মিলন',
+                'Skill Analysis': 'দক্ষতা বিশ্লেষণ',
+                'subtitle_all_internships': 'সমস্ত ডোমেইন জুড়ে উপলব্ধ সুযোগের সম্পূর্ণ ক্যাটালগ ব্রাউজ করুন।',
+                'subtitle_my_applications': 'আপনি যে ইন্টার্নশিপগুলির জন্য আবেদন করেছেন সেগুলির অবস্থা ট্র্যাক করুন।',
+                'subtitle_recommendations': 'আপনার দক্ষতার উপর ভিত্তি করে',
+                'Not set yet': 'এখনও সেট করা হয়নি',
+                'Match': 'মিল',
+                'total internships': 'মোট ইন্টার্নশিপ',
+                'roles > 2% match': 'ভূমিকা > 2% মিল',
+                'No skills to learn yet!': 'এখনও শেখার মতো কোনো দক্ষতা নেই!',
+                'No recommendations matched criteria': 'আমরা আপনার বর্তমান দক্ষতার জন্য 2%-এর বেশি মিল শতাংশ সহ কোনো ইন্টার্নশিপ খুঁজে পাইনি।',
+                'of available opportunities across all domains.': 'সব ডোমেইন জুড়ে উপলব্ধ সুযোগের।',
+                'to see your recommendations based on your skills': 'আপনার দক্ষতার ভিত্তিতে সুপারিশ দেখতে'
+            },
+            'or': {
+                'FUTUREPATH': 'ଫ୍ୟୁଚରପାଥ',
+                'Browse Internships': 'ଇଣ୍ଟର୍ନଶିପ ଦେଖନ୍ତୁ',
+                'Recommendations': 'ସୁପାରିଶ',
+                'My Applications': 'ମୋର ଆବେଦନ',
+                'Admin Dashboard': 'ଆଡମିନ ଡ୍ୟାସବୋର୍ଡ',
+                'Explore All Internships': 'ସମସ୍ତ ଇଣ୍ଟର୍ନଶିପ ଦେଖନ୍ତୁ',
+                'Browse the full catalog': 'ସମ୍ପୂର୍ଣ ତାଲିକା ଦେଖନ୍ତୁ',
+                'Full Catalog': 'ସମ୍ପୂର୍ଣ ତାଲିକା',
+                'Internship Title': 'ଇଣ୍ଟର୍ନଶିପ ଶୀର୍ଷକ',
+                'Company': 'କମ୍ପାନି',
+                'Stipend': 'ବୃତ୍ତି',
+                'Duration': 'ସମୟ',
+                'Location': 'ସ୍ଥାନ',
+                'Apply Now': 'ଏବେ ଆବେଦନ କରନ୍ତୁ',
+                'Already Applied': 'ପୂର୍ବରୁ ଆବେଦନ ହୋଇଛି',
+                'Personalized For You': 'ଆପଣଙ୍କ ପାଇଁ ବ୍ୟକ୍ତିଗତ',
+                'Based on your skills': 'ଆପଣଙ୍କ ଦକ୍ଷତା ଆଧାରରେ',
+                'Edit My Skills': 'ମୋ ଦକ୍ଷତା ସଂପାଦନ କରନ୍ତୁ',
+                'Application History': 'ଆବେଦନ ଇତିହାସ',
+                'Successfully applied': 'ସଫଳଭାବରେ ଆବେଦନ ହୋଇଛି',
+                'Status': 'ସ୍ଥିତି',
+                'Action': 'କାର୍ଯ୍ୟ',
+                'Find Internships': 'ଇଣ୍ଟର୍ନଶିପ ଖୋଜନ୍ତୁ',
+                'Best Matches': 'ସର୍ବୋତ୍ତମ ମିଳ',
+                'Skill Gaps': 'ଦକ୍ଷତା ଅଭାବ',
+                'Required Skills': 'ଆବଶ୍ୟକ ଦକ୍ଷତା',
+                'Skills Required': 'ଆବଶ୍ୟକ ଦକ୍ଷତା',
+                'View Details': 'ବିବରଣୀ ଦେଖନ୍ତୁ',
+                'Applied On': 'ଆବେଦନ ତାରିଖ',
+                'Months': 'ମାସ',
+                'Login': 'ଲଗଇନ',
+                'subtitle_all_internships': 'ସମସ୍ତ ଡୋମେନରେ ଉପଲବ୍ଧ ସୁଯୋଗର ସମ୍ପୂର୍ଣ ତାଲିକା ଦେଖନ୍ତୁ |',
+                'subtitle_my_applications': 'ଆପଣ ଆବେଦନ କରିଥିବା ଇଣ୍ଟର୍ନଶିପ୍ ର ସ୍ଥିତି ଟ୍ରାକ୍ କରନ୍ତୁ |',
+                'subtitle_recommendations': 'ଆପଣଙ୍କ ଦକ୍ଷତା ଆଧାରରେ',
+                'Not set yet': 'ଏପର୍ଯ୍ୟନ୍ତ ସେଟ୍ ହୋଇନାହିଁ',
+                'Match': 'ମିଳ',
+                'total internships': 'ମୋଟ ଇଣ୍ଟର୍ନଶିପ୍',
+                'roles > 2% match': 'ଭୂମିକା > 2% ମିଳ',
+                'No skills to learn yet!': 'ଶିଖିବା ପାଇଁ ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି ଦକ୍ଷତା ନାହିଁ!',
+                'No recommendations matched criteria': 'ଆମେ ଆପଣଙ୍କର ବର୍ଣ୍ଣମାନର ଦକ୍ଷତା ପାଇଁ 2% ରୁ ଅଧିକ ମ୍ୟାଚ୍ ପ୍ରତିଶତ ସହିତ କୌଣସି ଇଣ୍ଟର୍ନଶିପ୍ ପାଇଲୁ ନାହିଁ |',
+                'of available opportunities across all domains.': 'ସମସ୍ତ ଡୋମେନରେ ଉପଲବ୍ଧ ସୁଯୋଗର।',
+                'to see your recommendations based on your skills': 'ଆପଣଙ୍କ ଦକ୍ଷତା ଆଧାରରେ ସୁପାରିଶ ଦେଖିବା ପାଇଁ',
+                'Sign Up': 'ସାଇନ ଅପ',
+                'Logout': 'ଲଗଆଉଟ',
+                'My Profile': 'ମୋ ପ୍ରୋଫାଇଲ',
+                'Dashboard': 'ଡ୍ୟାସବୋର୍ଡ',
+                'No recommendations matched': 'କୌଣସି ସୁପାରିଶ ମିଳିଲା ନାହିଁ',
+                'Update My Skills': 'ମୋ ଦକ୍ଷତା ଅଦ୍ୟତନ କରନ୍ତୁ',
+                'Browse All': 'ସବୁ ଦେଖନ୍ତୁ',
+                'Language': 'ଭାଷା',
+                'Reviewing': 'ସମୀକ୍ଷାରେ',
+                'Accepted': 'ଗ୍ରହଣ',
+                'Applied': 'ଆବେଦନ',
+                'Get Started': 'ଆରମ୍ଭ କରନ୍ତୁ',
+                'Top Recommendations': 'ଶୀର୍ଷ ସୁପାରିଶ',
+                'REQUIRED SKILLS': 'ଆବଶ୍ୟକ ଦକ୍ଷତା',
+                'No internships available yet.': 'ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି ଇଣ୍ଟର୍ନଶିପ ଉପଲବ୍ଧ ନାହିଁ।',
+                'AI Matching': 'AI ମିଳ',
+                'Skill Analysis': 'ଦକ୍ଷତା ବିଶ୍ଳେଷଣ'
+            }
+        };
+
+        // ⚡ FAST data-i18n Translation Engine
+        // Elements tagged with data-i18n="Key" are translated instantly via direct lookup.
+        // No DOM walking — O(n) over only tagged elements.
+
+        // Store originals ONCE on first page load before any translation
+        const i18nOriginals = new Map();
+
+        function setLanguage(lang) {
+            const map = translations[lang] || {};
+
+            // 1. Translate all [data-i18n] elements safely
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+
+                // Save the original English text only once
+                if (!i18nOriginals.has(el)) {
+                    i18nOriginals.set(el, el.textContent.trim());
+                }
+
+                const translated = (lang !== 'en' && map[key]) ? map[key] : i18nOriginals.get(el);
+
+                // Only update the FIRST text node child — never wipe child elements
+                let updated = false;
+                for (const node of el.childNodes) {
+                    if (node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== '') {
+                        node.textContent = translated;
+                        updated = true;
+                        break;
+                    }
+                }
+                // If no text node found (element has only child elements), set textContent
+                if (!updated && el.children.length === 0) {
+                    el.textContent = translated;
+                }
+            });
+
+            // 2. Highlight the active lang dot
+            const langTitleMap = { en: 'english', hi: 'hindi', te: 'telugu', ta: 'tamil', pa: 'punjabi', ml: 'malayalam', kn: 'kannada', bn: 'bengali', or: 'odia' };
+            document.querySelectorAll('.lang-dot').forEach(dot => {
+                const isActive = dot.getAttribute('title').toLowerCase() === (langTitleMap[lang] || lang);
+                dot.classList.toggle('active', isActive);
+            });
+
+            // 3. Save preference
+            localStorage.setItem('preferred_lang', lang);
+        }
+
+        // 🌓 Theme Logic
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+            const isDark = body.classList.toggle('dark-mode');
+            
+            themeIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+            localStorage.setItem('preferred_theme', isDark ? 'dark' : 'light');
+        }
+
+        // Apply saved language & theme immediately on page load — no flicker
+        document.addEventListener('DOMContentLoaded', () => {
+            // Apply language
+            const savedLang = localStorage.getItem('preferred_lang') || 'en';
+            setLanguage(savedLang);
+
+            // Apply theme
+            const savedTheme = localStorage.getItem('preferred_theme');
+            const themeIcon = document.getElementById('theme-icon');
+            
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                themeIcon.className = 'fas fa-sun';
+            } else {
+                document.body.classList.remove('dark-mode');
+                themeIcon.className = 'fas fa-moon';
+            }
+        });
+    </script>
+</body>
+
+</html>

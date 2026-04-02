@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="hero-banner" style="background-color: var(--primary-green); color: white; border-bottom: 4px solid var(--cement);">
+    <div class="container px-4 text-center">
+        <h1 class="display-5 fw-bold mb-2">
+            <span data-i18n="My Applications">My Applications</span>
+        </h1>
+        <p class="lead opacity-75">
+            <span data-i18n="subtitle_my_applications">Track the status of internships you've applied for.</span>
+        </p>
+    </div>
+</div>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card-custom border-0 shadow-sm">
+                <div class="p-4 border-bottom bg-light rounded-top-4 d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold m-0" style="color: var(--text-dark);">
+                        <i class="fas fa-history me-2"></i>
+                        <span data-i18n="Application History">Application History</span>
+                    </h5>
+                    <span class="badge bg-dark rounded-pill px-3">{{ applications|length }} <span
+                            data-i18n="Applications">Applications</span></span>
+                </div>
+                <div class="table-responsive p-0">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead>
+                            <tr class="text-muted small text-uppercase fw-bold">
+                                <th class="px-4 py-3 border-0"><span data-i18n="Company">Company</span></th>
+                                <th class="py-3 border-0"><span data-i18n="Location">Location</span></th>
+                                <th class="py-3 border-0"><span data-i18n="Applied On">Applied On</span></th>
+                                <th class="py-3 border-0"><span data-i18n="Status">Status</span></th>
+                                <th class="text-end px-4 py-3 border-0"><span data-i18n="Action">Action</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for app in applications %}
+                            <tr>
+                                <td class="px-4">
+                                    <div class="d-flex align-items-center">
+                                        <div class="p-2 rounded-3 bg-light border me-3">
+                                            <i class="fas fa-building text-success opacity-75"></i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold" style="color: var(--text-dark);">{{ app.internship.company_name }}</div>
+                                            <div class="small text-muted">{{ app.internship.interest_area }}</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <i class="fas fa-map-marker-alt text-danger me-1 small"></i>
+                                    {{ app.internship.location }}
+                                </td>
+                                <td class="text-muted small">{{ app.applied_at|date:"M d, Y" }}</td>
+                                <td>
+                                    {% if app.status == "Applied" %}
+                                    <span class="badge rounded-pill px-3 shadow-sm"
+                                        style="background-color: var(--primary-green); color: white;">
+                                        <span data-i18n="Applied">Applied</span>
+                                    </span>
+                                    {% elif app.status == "Reviewing" %}
+                                    <span class="badge rounded-pill bg-warning text-dark px-3">
+                                        <span data-i18n="Reviewing">Reviewing</span>
+                                    </span>
+                                    {% elif app.status == "Accepted" %}
+                                    <span class="badge rounded-pill bg-success px-3">
+                                        <span data-i18n="Accepted">Accepted</span>
+                                    </span>
+                                    {% else %}
+                                    <span class="badge rounded-pill bg-secondary px-3">{{ app.status }}</span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-end px-4">
+                                    <button class="btn btn-sm btn-outline-success rounded-pill">
+                                        <span data-i18n="View Details">View Details</span>
+                                    </button>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5" class="text-center py-5">
+                                    <img src="https://illustrations.popsy.co/green/paper-plane.svg" alt="Empty"
+                                        style="max-width: 150px;" class="mb-3 opacity-50">
+                                    <h5 class="text-muted">
+                                        <span data-i18n="You haven't applied for any internships yet.">You haven't
+                                            applied for any internships yet.</span>
+                                    </h5>
+                                    <a href="{% url 'all_internships' %}"
+                                        class="btn btn-green btn-sm rounded-pill mt-3">
+                                        <span data-i18n="Find Internships">Find Internships</span>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

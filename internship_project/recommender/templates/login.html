@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row m-0 min-vh-100 align-items-center justify-content-center" style="background-color: var(--light-green);">
+    <div class="col-md-5 col-lg-4">
+        <div class="card-custom border-0 shadow-lg p-0 overflow-hidden">
+            <!-- Role Selection Header -->
+            <div class="d-flex border-bottom">
+                <button type="button" id="studentLoginTab"
+                    class="btn flex-fill py-3 fw-bold rounded-0 border-0 active-tab" onclick="switchLogin('student')"
+                    style="background-color: var(--white); color: var(--primary-green);">
+                    <i class="fas fa-user-graduate me-2"></i>Student Login
+                </button>
+                <button type="button" id="adminLoginTab"
+                    class="btn flex-fill py-3 fw-bold rounded-0 border-0 text-muted" onclick="switchLogin('admin')"
+                    style="background-color: var(--light-green);">
+                    <i class="fas fa-user-shield me-2"></i>Admin Login
+                </button>
+            </div>
+
+            <div class="p-4 pt-5 pb-5">
+                <div class="text-center mb-4">
+                    <h2 class="fw-bold" id="loginTitle">Student Account</h2>
+                    <p class="text-muted" id="loginSubtitle">Enter your credentials to access your recommendations.</p>
+                </div>
+
+                {% if error %}
+                <div class="alert alert-danger py-2 small mb-4 rounded-3 border-0 shadow-sm">
+                    <i class="fas fa-exclamation-circle me-2"></i>{{ error }}
+                </div>
+                {% endif %}
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-uppercase text-muted"
+                            style="letter-spacing: 1px;">Username</label>
+                        {{ form.username }}
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold text-uppercase text-muted"
+                            style="letter-spacing: 1px;">Password</label>
+                        {{ form.password }}
+                    </div>
+
+                    <div class="d-grid gap-3">
+                        <button type="submit" class="btn btn-green shadow-sm py-2">
+                            <span id="loginBtnText">Log In as Student</span>
+                        </button>
+                        <div class="text-center mt-2">
+                            <span class="text-muted small">Don't have an account?</span>
+                            <a href="{% url 'signup' %}"
+                                class="text-success small fw-bold text-decoration-none ms-1">Create Account</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .active-tab {
+        border-bottom: 3px solid var(--primary-green) !important;
+        background-color: var(--card-bg) !important;
+    }
+</style>
+
+<script>
+    function switchLogin(role) {
+        const studentTab = document.getElementById('studentLoginTab');
+        const adminTab = document.getElementById('adminLoginTab');
+        const title = document.getElementById('loginTitle');
+        const subtitle = document.getElementById('loginSubtitle');
+        const btnText = document.getElementById('loginBtnText');
+
+        if (role === 'admin') {
+            studentTab.classList.remove('active-tab');
+            studentTab.classList.add('text-muted');
+            studentTab.style.backgroundColor = 'var(--light-green)';
+
+            adminTab.classList.add('active-tab');
+            adminTab.classList.remove('text-muted');
+            adminTab.style.backgroundColor = 'var(--card-bg)';
+            adminTab.style.color = 'var(--primary-green)';
+
+            title.innerText = "Admin Portal";
+            subtitle.innerText = "Access the dashboard to manage internships.";
+            btnText.innerText = "Log In as Administrator";
+        } else {
+            adminTab.classList.remove('active-tab');
+            adminTab.classList.add('text-muted');
+            adminTab.style.backgroundColor = 'var(--light-green)';
+
+            studentTab.classList.add('active-tab');
+            studentTab.classList.remove('text-muted');
+            studentTab.style.backgroundColor = 'var(--card-bg)';
+            studentTab.style.color = 'var(--primary-green)';
+
+            title.innerText = "Student Account";
+            subtitle.innerText = "Enter your credentials to access your recommendations.";
+            btnText.innerText = "Log In as Student";
+        }
+    }
+</script>
+{% endblock %}

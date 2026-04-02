@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row m-0 min-vh-100 align-items-center justify-content-center" style="background-color: var(--light-green);">
+    <div class="col-md-6 col-lg-5">
+        <div class="card-custom border-0 shadow-lg p-5">
+            <div class="text-center mb-4">
+                <div class="position-relative d-inline-block mb-3">
+                    {% if profile.profile_photo %}
+                    <img src="{{ profile.profile_photo.url }}"
+                        class="rounded-circle border border-4 shadow" width="120" height="120"
+                        style="object-fit: cover; border-color: var(--white) !important;">
+                    {% else %}
+                    <div class="rounded-circle bg-success text-white d-flex align-items-center justify-content-center border border-4 shadow"
+                        style="width: 120px; height: 120px; border-color: var(--white) !important;">
+                        <i class="fas fa-user fa-3x"></i>
+                    </div>
+                    {% endif %}
+                </div>
+                <h2 class="fw-bold">My Skill Profile</h2>
+                <p class="text-muted">Update your info to get better recommendations.</p>
+            </div>
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label fw-bold">Profile Photo</label>
+                        {{ form.profile_photo }}
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold">Your Skills (comma separated)</label>
+                    {{ form.skills }}
+                    <div class="form-text mt-2">Example: Python, Java, Data Science, Figma</div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold">Upload Resume (Optional)</label>
+                    {{ form.resume }}
+                    <div class="form-text mt-2">PDF files only. We'll try to extract skills!</div>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-green">Save Profile</button>
+                    <a href="{% url 'recommendations' %}"
+                        class="btn btn-link text-success text-decoration-none fw-bold">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="hero-banner" style="background-color: var(--cement); border-bottom: 2px solid var(--cement-dark);">
+    <div class="container px-4 text-center">
+        <h1 class="display-5 fw-bold mb-2">
+            <span data-i18n="Explore All Internships">Explore All Internships</span>
+        </h1>
+        <p class="lead text-dark opacity-75">
+            <span data-i18n="subtitle_all_internships">Browse the full catalog of available opportunities across all
+                domains.</span>
+        </p>
+        {% if not user.is_authenticated %}
+        <div class="mt-3 p-3 rounded-pill shadow-sm d-inline-block border" style="background-color: var(--white); border-color: var(--cement) !important;">
+            <p class="mb-0 fw-bold">
+                <i class="fas fa-magic me-2"></i>
+                <a href="{% url 'login' %}" class="text-decoration-none text-success">
+                    <span data-i18n="Login">Login</span>
+                </a>
+                <span data-i18n="to see your recommendations based on your skills">to see your recommendations based on
+                    your skills</span>
+            </p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<div class="container py-5">
+    <!-- Filter and Sort Bar -->
+    <div class="card-custom border-0 shadow-sm p-4 mb-5" style="background-color: var(--card-bg);">
+        <form method="GET" action="{% url 'all_internships' %}" class="row g-3 align-items-end">
+            <!-- Location Filter -->
+            <div class="col-md-4">
+                <label class="form-label small fw-bold text-muted text-uppercase" data-i18n="Filter by Location">Filter by Location</label>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text bg-white border-end-0"><i class="fas fa-map-marker-alt text-success"></i></span>
+                    <input type="text" name="location" class="form-control border-start-0 ps-0" 
+                           placeholder="City or State..." value="{{ current_filters.location }}">
+                </div>
+            </div>
+
+            <!-- Work Type Filter -->
+            <div class="col-md-3">
+                <label class="form-label small fw-bold text-muted text-uppercase" data-i18n="Internship Type">Internship Type</label>
+                <select name="work_type" class="form-select form-select-sm">
+                    <option value="" {% if not current_filters.work_type %}selected{% endif %}>All Types</option>
+                    <option value="In-office" {% if current_filters.work_type == 'In-office' %}selected{% endif %}>In-office</option>
+                    <option value="Work from Home" {% if current_filters.work_type == 'Work from Home' %}selected{% endif %}>Work from Home</option>
+                    <option value="Field work" {% if current_filters.work_type == 'Field work' %}selected{% endif %}>Field work</option>
+                    <option value="Hybrid" {% if current_filters.work_type == 'Hybrid' %}selected{% endif %}>Hybrid</option>
+                </select>
+            </div>
+
+            <!-- Sort By -->
+            <div class="col-md-3">
+                <label class="form-label small fw-bold text-muted text-uppercase" data-i18n="Sort By">Sort By Price/Time</label>
+                <select name="sort" class="form-select form-select-sm">
+                    <option value="-created_at" {% if current_filters.sort == '-created_at' %}selected{% endif %}>Newest First</option>
+                    <option value="stipend_asc" {% if current_filters.sort == 'stipend_asc' %}selected{% endif %}>Stipend: Low to High</option>
+                    <option value="stipend_desc" {% if current_filters.sort == 'stipend_desc' %}selected{% endif %}>Stipend: High to Low</option>
+                    <option value="created_at" {% if current_filters.sort == 'created_at' %}selected{% endif %}>Oldest First</option>
+                </select>
+            </div>
+
+            <!-- Actions -->
+            <div class="col-md-2 d-grid gap-2">
+                <button type="submit" class="btn btn-green btn-sm rounded-pill">
+                    <i class="fas fa-search me-1"></i> Apply
+                </button>
+                <a href="{% url 'all_internships' %}" class="btn btn-outline-secondary btn-sm rounded-pill">
+                    Reset
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-5 pb-3 border-bottom">
+        <h2 class="fw-bold m-0" style="color: var(--text-dark);">
+            <i class="fas fa-list-ul me-2"></i>
+            <span data-i18n="Full Catalog">Full Catalog</span>
+        </h2>
+        <span class="badge bg-dark rounded-pill px-3 py-2">{{ internships|length }} <span
+                data-i18n="total internships">total internships</span></span>
+    </div>
+
+    <div class="row g-4">
+        {% for r in internships %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card-custom border-0 shadow-sm d-flex flex-column" style="background-color: var(--card-bg);">
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h5 class="fw-bold mb-0 text-truncate" style="max-width: 210px; color: var(--text-dark);">{{ r.title }}</h5>
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'toggle_save_internship' r.id %}" class="text-decoration-none">
+                            <i class="{% if r.id in saved_ids %}fas{% else %}far{% endif %} fa-bookmark {% if r.id in saved_ids %}text-danger{% else %}text-muted{% endif %} fa-lg"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                    <div class="text-success small fw-bold mb-2">{{ r.company_name }}</div>
+                    <div class="d-flex flex-wrap gap-2 mb-2">
+                        <span class="badge bg-success-subtle text-success border-0 small">
+                            <i class="fas fa-money-bill-wave me-1"></i>&#x20B9;{{ r.stipend }}
+                        </span>
+                        <span class="badge bg-primary-subtle text-primary border-0 small">
+                            <i class="fas fa-calendar-alt me-1"></i>{{ r.duration }}
+                            <span data-i18n="Months">Months</span>
+                        </span>
+                        <span class="badge bg-warning-subtle text-warning border-0 small">
+                            <i class="fas fa-briefcase me-1"></i>{{ r.work_type }}
+                        </span>
+                    </div>
+                    <small class="text-muted">
+                        <i class="fas fa-map-marker-alt me-1"></i>{{ r.location }}
+                    </small>
+                </div>
+
+                <div class="mb-4">
+                    <p class="small text-muted mb-2 text-uppercase fw-bold" style="font-size: 0.7rem;">
+                        <span data-i18n="Skills Required">Skills Required</span>
+                    </p>
+                    <div class="d-flex flex-wrap gap-1">
+                        {% for skill_item in r.skills_list|slice:":5" %}
+                        <span class="badge small border px-2 py-1" style="font-size: 0.7rem; background-color: var(--white); color: var(--text-dark);">
+                            {{ skill_item }}
+                        </span>
+                        {% endfor %}
+                        {% if r.skills_list|length > 5 %}
+                        <span class="text-muted small align-self-center ms-1">...</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="d-grid mt-auto">
+                    {% if r.id in applied_ids %}
+                    <button class="btn btn-secondary btn-sm rounded-pill disabled" disabled>
+                        <span data-i18n="Already Applied">Already Applied</span>
+                    </button>
+                    {% else %}
+                    <a href="{% url 'apply_internship' r.id %}" class="btn btn-green btn-sm rounded-pill"
+                        target="_blank">
+                        <span data-i18n="Apply Now">Apply Now</span>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <h4 class="text-muted">
+                <span data-i18n="No internships available yet.">No internships available yet.</span>
+            </h4>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
